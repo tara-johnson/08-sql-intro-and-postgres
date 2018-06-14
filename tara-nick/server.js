@@ -10,7 +10,7 @@ const app = express();
 
 // Windows and Linux users: You should have retained the user/password from the pre-work for this course.
 // Your OS may require that your conString (connection string, containing protocol and port, etc.) is composed of additional information including user and password.
-// const conString = 'postgres://postgres:1234@localhost:5432/kilovolt';
+// const conString = 'postgres://postgres:1234@localhost:5432/kilovolt'
 // For example...
 // const conString = 'postgres://postgres:1234@localhost:5432/kilovolt'
 
@@ -81,7 +81,7 @@ app.put('/articles/:id', (request, response) => {
   // COMMENT DONE: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // We believe this is still a part of 3 > 4 in the process of things. Its interacting with Article.prototype.updateRecord, and is (U)pdate in CRUD.
 
-  let SQL = 'UPDATE id FROM articles';
+  let SQL = 'UPDATE * FROM articles';
   let values = [];
 
   client.query(SQL, values)
