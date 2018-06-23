@@ -12,10 +12,8 @@ const app = express();
 // Your OS may require that your conString (connection string, containing protocol and port, etc.) is composed of additional information including user and password.
 // const conString = 'postgres://postgres:1234@localhost:5432/kilovolt';
 // For example...
-// const conString = 'postgres://postgres:1234@localhost:5432/kilovolt'
-
-// Mac:
-const conString = 'postgres://localhost:5432/kilovolt';
+const conString = 'postgres://postgres:5678@localhost:5432/kilovolt'; // For Windows or Linux
+// const conString = 'postgres://localhost:5432/kilovolt'; // Mac
 
 // DONE: Pass the conString into the Client constructor so that the new database interface instance has the information it needs
 const client = new pg.Client(conString);
@@ -81,8 +79,19 @@ app.put('/articles/:id', (request, response) => {
   // COMMENT DONE: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // We believe this is still a part of 3 > 4 in the process of things. Its interacting with Article.prototype.updateRecord, and is (U)pdate in CRUD.
 
-  let SQL = 'UPDATE id FROM articles';
-  let values = [];
+  let SQL = `UPDATE articles SET title=$1, author=$2, "authorUrl"=$3, category=$4, "publishedOn"=$5, body=$6
+  WHERE article_id=$7;
+  `;
+
+  let values = [
+    request.body.title,
+    request.body.author,
+    request.body.authorUrl,
+    request.body.category,
+    request.body.publishedOn,
+    request.body.body,
+    request.params.id
+  ];
 
   client.query(SQL, values)
     .then(() => {
